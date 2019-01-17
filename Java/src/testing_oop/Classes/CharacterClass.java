@@ -15,23 +15,23 @@ public abstract class CharacterClass implements Interface {
     }
 
     @Override
-    public void restoreHealth() {
-
+    public void restoreHealth(int amount) {
+    setHealthPoints(this.healthPoints + amount);
     }
 
     @Override
-    public void loseHealth() {
-
+    public void loseHealth(int amount) {
+    setHealthPoints(this.healthPoints - amount);
     }
 
     @Override
-    public void restoreMana() {
-
+    public void restoreMana(int amount) {
+    setManaPoints(this.maxManaPoints + amount);
     }
 
     @Override
-    public void loseMana() {
-
+    public void loseMana(int amount) {
+    setManaPoints(this.maxManaPoints - amount);
     }
 
     @Override
@@ -41,7 +41,10 @@ public abstract class CharacterClass implements Interface {
 
     @Override
     public void info() {
-
+    System.out.println("Name " + this.name);
+    System.out.println("Current health points equals: " + this.healthPoints);
+    System.out.println("Current mana points equals: " + this.manaPoints);
+    System.out.println("Current level equals: " + this.level);
     }
 
     public int getHealthPoints() {
@@ -49,7 +52,9 @@ public abstract class CharacterClass implements Interface {
     }
 
     public void setHealthPoints(int healthPoints) {
-        this.healthPoints = healthPoints;
+        if (healthPoints < 0) this.healthPoints = 0;
+        else if(healthPoints > this.maxHealthPoints) this.healthPoints = maxHealthPoints;
+        else this.healthPoints = healthPoints;
     }
 
     public int getManaPoints() {
@@ -57,7 +62,9 @@ public abstract class CharacterClass implements Interface {
     }
 
     public void setManaPoints(int manaPoints) {
-        this.manaPoints = manaPoints;
+        if(this.manaPoints < 0) this.manaPoints = 0;
+        else if (manaPoints > this.maxManaPoints) this.manaPoints = maxManaPoints;
+        else this.manaPoints = manaPoints;
     }
 
     public int getLevel() {
@@ -65,7 +72,8 @@ public abstract class CharacterClass implements Interface {
     }
 
     public void setLevel(int level) {
-        this.level = level;
+        if (level < 0) System.out.println("We can't lose level");
+        else this.level = level;
     }
 
     public int getAttackAmount() {
